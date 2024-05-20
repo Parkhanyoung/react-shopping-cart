@@ -1,37 +1,34 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { deliveryCostState, orderAmountState, totalOrderAmountState } from "../recoil/cartAmount";
-import { ReactComponent as InfoIcon } from "../assets/info-icon.svg";
-
-export interface ICartAmountProps {}
+import { cartAmountState } from "../../recoil/cartAmount";
+import { ReactComponent as InfoIcon } from "../../assets/info-icon.svg";
+import { FREE_SHIPPING_THRESHOLD } from "../../constants/pricing";
+import { formatToKRW } from "../../utils/formatToKRW";
 
 export default function CartAmount() {
-  const orderAmount = useRecoilValue(orderAmountState);
-  const deliveryCost = useRecoilValue(deliveryCostState);
-  const totalOrderAmount = useRecoilValue(totalOrderAmountState);
+  const { orderAmount, shippingCost, totalOrderAmount } = useRecoilValue(cartAmountState);
 
   return (
     <S.CartAmountContainer>
       <S.CartAmountNoti>
         <S.InfoIcon />
         <S.CartAmountNotiText>
-          총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다.
+          총 주문 금액이 {formatToKRW(FREE_SHIPPING_THRESHOLD)} 이상일 경우 무료 배송됩니다.
         </S.CartAmountNotiText>
       </S.CartAmountNoti>
 
       <S.UpperCartAmountInfoWrapper>
         <S.CartAmountInfo>
-          <S.AmountText>주문 금액</S.AmountText>{" "}
-          <S.Amount>{orderAmount.toLocaleString()}원</S.Amount>
+          <S.AmountText>주문 금액</S.AmountText> <S.Amount>{formatToKRW(orderAmount)}</S.Amount>
         </S.CartAmountInfo>
         <S.CartAmountInfo>
-          <S.AmountText>배송비</S.AmountText> <S.Amount>{deliveryCost.toLocaleString()}원</S.Amount>
+          <S.AmountText>배송비</S.AmountText> <S.Amount>{formatToKRW(shippingCost)}</S.Amount>
         </S.CartAmountInfo>
       </S.UpperCartAmountInfoWrapper>
       <S.LowerCartAmountInfoWrapper>
         <S.CartAmountInfo>
           <S.AmountText>총 주문 금액</S.AmountText>{" "}
-          <S.Amount>{totalOrderAmount.toLocaleString()}원</S.Amount>
+          <S.Amount>{formatToKRW(totalOrderAmount)}</S.Amount>
         </S.CartAmountInfo>
       </S.LowerCartAmountInfoWrapper>
     </S.CartAmountContainer>

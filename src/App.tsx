@@ -3,8 +3,8 @@ import { RecoilRoot } from "recoil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CartPage from "./pages/CartPage";
-import { PATH } from "./constants/path";
-import OrderSummaryPage from "./pages/OrderSummaryPage";
+import { ROUTE_PATH } from "./constants/routePath";
+import CheckoutPage from "./pages/CheckoutPage";
 import { ErrorBoundary } from "react-error-boundary";
 
 function App() {
@@ -13,8 +13,8 @@ function App() {
       <RecoilRoot>
         <ErrorBoundary fallbackRender={({ error }) => error.message}>
           <Routes>
-            <Route path={PATH.cart} element={<CartPage />} />
-            <Route path={PATH.orderSummary} element={<OrderSummaryPage />} />
+            <Route path={ROUTE_PATH.cart} element={<CartPage />} />
+            <Route path={ROUTE_PATH.checkout} element={<CheckoutPage />} />
           </Routes>
         </ErrorBoundary>
       </RecoilRoot>
